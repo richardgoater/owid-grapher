@@ -18,7 +18,8 @@ import {getParent} from './utils'
 import {Grapher} from 'site/client/Grapher'
 import {ChartView} from 'charts/ChartView'
 import { runVariableCountryPage } from './runVariableCountryPage'
-import { runCountryProfilePage } from './runCountryProfilePage';
+import { runCountryProfilePage } from './runCountryProfilePage'
+import { runEntryExcerptLinks } from './runEntryExcerptLinks'
 
 declare var window: any
 window.Grapher = Grapher
@@ -32,6 +33,7 @@ window.runFeedbackPage = runFeedbackPage
 window.runDonateForm = runDonateForm
 window.runVariableCountryPage = runVariableCountryPage
 window.runCountryProfilePage = runCountryProfilePage
+window.runEntryExcerptLinks = runEntryExcerptLinks
 
 Analytics.logEvent("OWID_PAGE_LOAD")
 
