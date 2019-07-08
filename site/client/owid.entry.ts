@@ -8,16 +8,16 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 
 const SmoothScroll = require('smooth-scroll')
 
-import {Analytics} from './Analytics'
-import {runChartsIndexPage} from './runChartsIndexPage'
-import {runHeaderMenus} from './SiteHeaderMenus'
-import {runSearchPage} from './SearchPageMain'
-import {runNotFoundPage} from './NotFoundPageMain'
-import {runFeedback, runFeedbackPage} from './Feedback'
-import {runDonateForm} from './DonateForm'
-import {getParent} from './utils'
-import {Grapher} from 'site/client/Grapher'
-import {ChartView} from 'charts/ChartView'
+import { Analytics } from './Analytics'
+import { runChartsIndexPage } from './runChartsIndexPage'
+import { runHeaderMenus } from './SiteHeaderMenus'
+import { runSearchPage } from './SearchPageMain'
+import { runNotFoundPage } from './NotFoundPageMain'
+import { runFeedback, runFeedbackPage } from './feedback'
+import { runDonateForm } from './DonateForm'
+import { getParent } from './utils'
+import { Grapher } from 'site/client/Grapher'
+import { ChartView } from 'charts/ChartView'
 import { runVariableCountryPage } from './runVariableCountryPage'
 import { runCountryProfilePage } from './runCountryProfilePage'
 
@@ -35,7 +35,7 @@ window.runDonateForm = runDonateForm
 window.runVariableCountryPage = runVariableCountryPage
 window.runCountryProfilePage = runCountryProfilePage
 
-Analytics.logEvent("OWID_PAGE_LOAD")
+Analytics.logEvent('OWID_PAGE_LOAD')
 
 // tslint:disable-next-line:no-unused-expression
 new SmoothScroll('a[href*="#"][data-smooth-scroll]', {
@@ -45,16 +45,22 @@ new SmoothScroll('a[href*="#"][data-smooth-scroll]', {
     popstate: false
 })
 
-const search = document.querySelector("form#search-nav") as HTMLFormElement
+const search = document.querySelector('form#search-nav') as HTMLFormElement
 if (search) {
-    const input = search.querySelector("input[type=search]") as HTMLInputElement
-    search.addEventListener('submit', (ev) => {
+    const input = search.querySelector(
+        'input[type=search]'
+    ) as HTMLInputElement
+    search.addEventListener('submit', ev => {
         ev.preventDefault()
-        Analytics.logEvent("OWID_SITE_SEARCH", { query: input.value }).then(() => search.submit()).catch(() => search.submit())
+        Analytics.logEvent('OWID_SITE_SEARCH', { query: input.value })
+            .then(() => search.submit())
+            .catch(() => search.submit())
     })
 }
 
-const trackedLinkExists: boolean = !!document.querySelector("[data-track-click]")
+const trackedLinkExists: boolean = !!document.querySelector(
+    '[data-track-click]'
+)
 
 function createFunctionWithTimeout(callback: () => void, timeout: number = 50) {
     let called = false
@@ -69,18 +75,21 @@ function createFunctionWithTimeout(callback: () => void, timeout: number = 50) {
 }
 
 if (trackedLinkExists) {
-    document.addEventListener("click", async (ev) => {
+    document.addEventListener('click', async ev => {
         const targetElement = ev.target as HTMLElement
-        const trackedElement = getParent(targetElement, (el: HTMLElement) => el.getAttribute("data-track-click") != null)
+        const trackedElement = getParent(
+            targetElement,
+            (el: HTMLElement) => el.getAttribute('data-track-click') != null
+        )
         if (trackedElement) {
             // Note that browsers will cancel all pending requests once a user
             // navigates away from a page. An earlier implementation had a
             // timeout to send the event before navigating, but it broke
             // CMD+CLICK for opening a new tab.
-            Analytics.logEvent("OWID_SITE_CLICK", {
+            Analytics.logEvent('OWID_SITE_CLICK', {
                 text: trackedElement.innerText,
-                href: trackedElement.getAttribute("href"),
-                note: trackedElement.getAttribute("data-track-note")
+                href: trackedElement.getAttribute('href'),
+                note: trackedElement.getAttribute('data-track-note')
             })
         }
     })
