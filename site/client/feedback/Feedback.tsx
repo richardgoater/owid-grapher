@@ -110,7 +110,7 @@ export class FeedbackForm extends React.Component<{ onDismiss: () => void }> {
         return (
             <form
                 className={classnames(
-                    'w-84 shadow-xl rounded-lg overflow-hidden',
+                    'w-84 shadow-xl rounded-lg overflow-hidden bg-white',
                     {
                         'opacity-50': this.loading
                     }
@@ -157,7 +157,7 @@ export class FeedbackForm extends React.Component<{ onDismiss: () => void }> {
                         </div>
                     )}
                 </div>
-                <footer className="flex flex-row-reverse p-4 bg-white text-sm shadow-above">
+                <footer className="flex flex-row-reverse p-4 text-sm shadow-above">
                     <PrimaryButton type="submit" disabled={loading}>
                         Send
                     </PrimaryButton>
