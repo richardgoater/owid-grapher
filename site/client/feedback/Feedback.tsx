@@ -8,6 +8,7 @@ import classnames from 'classnames'
 
 import Input from './Input'
 import TextArea from './TextArea'
+import { PrimaryButton, SecondaryButton } from './Buttons'
 
 function sendFeedback(feedback: Feedback) {
     return new Promise((resolve, reject) => {
@@ -147,26 +148,26 @@ export class FeedbackForm extends React.Component<{ onDismiss: () => void }> {
                     >
                         Message
                     </TextArea>
-                    {this.error ? (
-                        <div style={{ color: 'red' }}>{this.error}</div>
-                    ) : (
-                        undefined
+                    {!!this.error && (
+                        <div className="text-red-700">{this.error}</div>
                     )}
-                    {this.done ? (
-                        <div style={{ color: 'green' }}>
+                    {!!this.done && (
+                        <div className="text-green-700">
                             Thanks for your feedback!
                         </div>
-                    ) : (
-                        undefined
                     )}
                 </div>
-                <footer>
-                    <button onClick={this.onDismiss} disabled={loading}>
-                        Close
-                    </button>
-                    <button type="submit" disabled={loading}>
+                <footer className="flex flex-row-reverse p-4 bg-white text-sm shadow-above">
+                    <PrimaryButton type="submit" disabled={loading}>
                         Send
-                    </button>
+                    </PrimaryButton>
+                    <SecondaryButton
+                        className="mr-2"
+                        onClick={this.onDismiss}
+                        disabled={loading}
+                    >
+                        Close
+                    </SecondaryButton>
                 </footer>
             </form>
         )

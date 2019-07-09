@@ -13,7 +13,7 @@ export default ({ id, label, children }: Props) => (
         </label>
         {React.cloneElement(children, {
             className:
-                'block border border-gray-400 py-2 px-4 w-full rounded text-sm'
+                'block border border-gray-400 py-2 px-4 w-full rounded text-sm outline-none'
         })}
     </div>
 )

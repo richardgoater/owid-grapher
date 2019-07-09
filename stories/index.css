@@ -7,3 +7,11 @@
 body {
     @apply font-sans;
 }
+
+.shadow-above {
+    box-shadow: 0 -0.07143rem 0.85714rem rgba(0, 0, 0, 0.08);
+}
+
+.transition {
+    transition: all 0.25s ease-in-out;
+}
