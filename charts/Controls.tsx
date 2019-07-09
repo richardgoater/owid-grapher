@@ -483,15 +483,18 @@ export class ControlsFooterView extends React.Component<{ controls: Controls }> 
         const {chart, chartView} = props.controls.props
 
         const tabs = <nav className="tabs">
-            <ul>
+            <ul className="list-none flex uppercase text-center">
                 {chart.availableTabs.map(tabName => {
-                    return tabName !== 'download' && <li key={tabName} className={"tab clickable" + (tabName === chart.tab ? ' active' : '')} onClick={() => chart.tab = tabName}><a>{tabName}</a></li>
+                    return tabName !== 'download' &&
+                        <li key={tabName} className="border-t border-l border-gray-400 flex-grow" onClick={() => chart.tab = tabName}>
+                        <a className={'block py-2 px-4' + (tabName === chart.tab ? ' border-b-2 border-gray-800' : '')}>{tabName}</a>
+                        </li>
                 })}
-                <li className={"tab clickable icon" + (chart.tab === 'download' ? ' active' : '')} onClick={() => chart.tab = 'download'} title="Download as .png or .svg">
-                    <a><FontAwesomeIcon icon={faDownload}/></a>
+                <li className={"border-t border-l border-gray-400" + (chart.tab === 'download' ? ' active' : '')} onClick={() => chart.tab = 'download'} title="Download as .png or .svg">
+                    <a className="block py-2 px-4"><FontAwesomeIcon icon={faDownload}/></a>
                 </li>
-                <li className="clickable icon">
-                    <a title="Share" onClick={this.onShareMenu}><FontAwesomeIcon icon={faShareAlt}/></a>
+                <li className="border-t border-l border-gray-400">
+                    <a title="Share" className="block py-2 px-4" onClick={this.onShareMenu}><FontAwesomeIcon icon={faShareAlt}/></a>
                 </li>
                 {hasSettingsMenu && <li className="clickable icon">
                     <a title="Settings" onClick={this.onSettingsMenu}><FontAwesomeIcon icon={faCog}/></a>
@@ -519,7 +522,7 @@ export class ControlsFooterView extends React.Component<{ controls: Controls }> 
             {chart.isLineChart && chart.lineChart.canToggleRelative && <AbsRelToggle chart={chart} />}
         </div>
 
-        return <div className="ControlsFooter" style={{ height: props.controls.footerHeight }}>
+        return <div className="ControlsFooter mt-auto">
             {hasTimeline && (hasInlineControls || !hasSpace) && <div className="footerRowSingle">
                 {timeline}
             </div>}
