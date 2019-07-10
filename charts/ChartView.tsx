@@ -320,7 +320,7 @@ export class ChartView extends React.Component<ChartViewProps> {
 
             const style = {
                 width: renderWidth,
-                height: renderHeight,
+                // height: renderHeight, // removing for now
                 fontSize: this.chart.baseFontSize
             }
 

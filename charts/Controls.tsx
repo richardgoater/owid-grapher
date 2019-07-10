@@ -420,7 +420,6 @@ export class ControlsOverlayView extends React.Component<{ controls: Controls }>
         const wrapperStyle: React.CSSProperties = {
             height: `${controls.controlsPaddingTop}px`,
             position: 'relative',
-            width: '1px'
         }
         return <div className="ControlsOverlay" style={wrapperStyle}>
             {this.renderAddButton()}
@@ -450,9 +449,9 @@ export class ControlsOverlayView extends React.Component<{ controls: Controls }>
                 buttonStyle.right = `${-controls.addButtonX}px`
             }
 
-            return <button className="addDataButton clickable" onClick={this.onDataSelect} style={buttonStyle}>
+            return <button className="cursor-pointer flex items-center flex-no-wrap whitespace-no-wrap text-sm text-gray-600 absolute right-0 mr-4" onClick={this.onDataSelect}>
                 <span className="icon">
-                    <svg width={16} height={16}>
+                    <svg width={16} height={16} className="stroke-current">
                         <path d="M3,8 h10 m-5,-5 v10" />
                     </svg>
                 </span>
@@ -487,14 +486,14 @@ export class ControlsFooterView extends React.Component<{ controls: Controls }> 
                 {chart.availableTabs.map(tabName => {
                     return tabName !== 'download' &&
                         <li key={tabName} className="border-t border-l border-gray-400 flex-grow" onClick={() => chart.tab = tabName}>
-                        <a className={'block py-2 px-4' + (tabName === chart.tab ? ' border-b-2 border-gray-800' : '')}>{tabName}</a>
+                        <a className={'block py-2 px-4 cursor-pointer' + (tabName === chart.tab ? ' border-b-2 border-gray-800' : '')}>{tabName}</a>
                         </li>
                 })}
                 <li className={"border-t border-l border-gray-400" + (chart.tab === 'download' ? ' active' : '')} onClick={() => chart.tab = 'download'} title="Download as .png or .svg">
-                    <a className="block py-2 px-4"><FontAwesomeIcon icon={faDownload}/></a>
+                    <a className="block py-2 px-4 cursor-pointer"><FontAwesomeIcon icon={faDownload}/></a>
                 </li>
                 <li className="border-t border-l border-gray-400">
-                    <a title="Share" className="block py-2 px-4" onClick={this.onShareMenu}><FontAwesomeIcon icon={faShareAlt}/></a>
+                    <a title="Share" className="block py-2 px-4 cursor-pointer" onClick={this.onShareMenu}><FontAwesomeIcon icon={faShareAlt}/></a>
                 </li>
                 {hasSettingsMenu && <li className="clickable icon">
                     <a title="Settings" onClick={this.onSettingsMenu}><FontAwesomeIcon icon={faCog}/></a>

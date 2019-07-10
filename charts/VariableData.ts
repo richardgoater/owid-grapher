@@ -1,4 +1,18 @@
-import { extend, some, isString, isNumber, uniq, sortedUniq, min, max, keyBy, keys, values, each, sortBy } from './Util'
+import {
+    extend,
+    some,
+    isString,
+    isNumber,
+    uniq,
+    sortedUniq,
+    min,
+    max,
+    keyBy,
+    keys,
+    values,
+    each,
+    sortBy
+} from './Util'
 import { ChartConfig } from './ChartConfig'
 import { observable, computed, action, reaction } from 'mobx'
 import { BAKED_GRAPHER_URL } from 'settings'
@@ -13,32 +27,34 @@ declare var window: { admin: any }
 declare var App: { isEditor: boolean }
 
 export interface DataForChart {
-    variables: {[id: string]: {
-        id: number
-        name: string
-        description: string
-        unit: string
-        shortUnit: string
-        datasetName: string
-        datasetId: string
+    variables: {
+        [id: string]: {
+            id: number;
+            name: string;
+            description: string;
+            unit: string;
+            shortUnit: string;
+            datasetName: string;
+            datasetId: string;
 
-        display: VariableDisplaySettings
+            display: VariableDisplaySettings;
 
-        source: {
-            id: number,
-            name: string,
-            dataPublishedBy: string,
-            dataPublisherSource: string,
-            link: string,
-            retrievedDate: string,
-            additionalInfo: string,
-        }
+            source: {
+                id: number;
+                name: string;
+                dataPublishedBy: string;
+                dataPublisherSource: string;
+                link: string;
+                retrievedDate: string;
+                additionalInfo: string;
+            };
 
-        years: number[]
-        entities: number[]
-        values: (number|string)[]
-    }}
-    entityKey: {[id: string]: EntityMeta}
+            years: number[];
+            entities: number[];
+            values: (number | string)[];
+        };
+    }
+    entityKey: { [id: string]: EntityMeta }
 }
 
 export class VariableDisplaySettings {
@@ -62,16 +78,17 @@ export class Variable {
 
     @observable.ref coverage?: string
 
-    @observable display: VariableDisplaySettings = new VariableDisplaySettings()
+    @observable
+    display: VariableDisplaySettings = new VariableDisplaySettings()
 
     @observable.struct source!: {
-        id: number,
-        name: string,
-        dataPublishedBy: string,
-        dataPublisherSource: string,
-        link: string,
-        retrievedDate: string,
-        additionalInfo: string,
+        id: number;
+        name: string;
+        dataPublishedBy: string;
+        dataPublisherSource: string;
+        link: string;
+        retrievedDate: string;
+        additionalInfo: string;
     }
     @observable.ref years: number[] = []
     @observable.ref entities: string[] = []
@@ -80,7 +97,7 @@ export class Variable {
     constructor(json: any) {
         for (const key in this) {
             if (key in json) {
-                if (key === "display") {
+                if (key === 'display') {
                     extend(this.display, json.display)
                 } else {
                     this[key] = json[key]
@@ -95,7 +112,7 @@ export class Variable {
         if (minYear !== undefined && maxYear !== undefined) {
             return `${formatYear(minYear)} – ${formatYear(maxYear)}`
         }
-        return ""
+        return ''
     }
 
     @computed get hasNumericValues(): boolean {
@@ -144,8 +161,8 @@ export class Variable {
 }
 
 interface EntityMeta {
-    id: number,
-    name: string,
+    id: number
+    name: string
     code: string
 }
 
@@ -169,8 +186,10 @@ export class VariableData {
         return keyBy(this.entityMetaById, 'name')
     }
 
-    @computed get cacheTag(): string|undefined {
-        return (typeof(App) !== "undefined" && App.isEditor) ? undefined : this.chart.cacheTag
+    @computed get cacheTag(): string | undefined {
+        return typeof App !== 'undefined' && App.isEditor
+            ? undefined
+            : this.chart.cacheTag
     }
 
     @computed get availableEntities(): string[] {
@@ -189,15 +208,24 @@ export class VariableData {
         }
 
         if (window.admin) {
-            const json = await window.admin.getJSON(`/api/data/variables/${variableIds.join("+")}.json${cacheTag ? "?v="+cacheTag : ""}`)
+            const json = await window.admin.getJSON(
+                `/api/data/variables/${variableIds.join('+')}.json${
+                    cacheTag ? '?v=' + cacheTag : ''
+                }`
+            )
             this.receiveData(json)
         } else {
             const req = new XMLHttpRequest()
             const that = this
-            req.addEventListener("load", function() {
+            req.addEventListener('load', function() {
                 that.receiveData(JSON.parse(this.responseText))
             })
-            req.open("GET", `${BAKED_GRAPHER_URL}/data/variables/${variableIds.join("+")}.json?v=${cacheTag}`)
+            req.open(
+                'GET',
+                `${BAKED_GRAPHER_URL}/data/variables/${variableIds.join(
+                    '+'
+                )}.json?v=${cacheTag}`
+            )
             req.send()
         }
     }
@@ -207,10 +235,12 @@ export class VariableData {
         const entityMetaById: { [id: string]: EntityMeta } = json.entityKey
         for (const key in json.variables) {
             const variable = new Variable(json.variables[key])
-            variable.entities = variable.entities.map(id => entityMetaById[id].name)
+            variable.entities = variable.entities.map(
+                id => entityMetaById[id].name
+            )
             variablesById[key] = variable
         }
-        each(entityMetaById, (e, id) => e.id = +id)
+        each(entityMetaById, (e, id) => (e.id = +id))
         this.variablesById = variablesById
         this.entityMetaById = entityMetaById
     }

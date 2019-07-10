@@ -172,7 +172,7 @@ export class HeaderHTML extends React.Component<{
         }
 
         return (
-            <div>
+            <div className="flex items-center p-2 justify-between">
                 <a href={chart.url.canonicalUrl} target="_blank">
                     <h1 style={titleStyle}>{header.title.renderHTML()}</h1>
                 </a>

@@ -96,12 +96,7 @@ export class Logo {
 
     renderHTML() {
         if (this.props.isLink || !this.spec.url) {
-            return (
-                <div
-                    className="absolute right-0 top-0 mt-4 mr-4"
-                    dangerouslySetInnerHTML={{ __html: this.spec.svg }}
-                />
-            )
+            return <div dangerouslySetInnerHTML={{ __html: this.spec.svg }} />
         } else {
             return (
                 <a

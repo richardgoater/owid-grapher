@@ -14,9 +14,9 @@
         "forceConsistentCasingInFileNames": true,
         "lib": ["dom", "es7", "esnext.asynciterable"],
         "baseUrl": ".",
-        "plugins": [
-        ],
-        "keyofStringsOnly": true
+        "plugins": [],
+        "keyofStringsOnly": true,
+        "resolveJsonModule": true
     },
     "exclude": ["node_modules", "bakedSite"]
 }

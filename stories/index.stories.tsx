@@ -9,11 +9,16 @@ import { ChartStoryView } from 'site/client/ChartStoryView'
 
 import './index.css'
 
+import chartData from './data.js'
+import chartConfig from './config.js'
+
 storiesOf('FeedbackForm', module).add('normal', () => (
     <FeedbackForm onDismiss={action('dismissed')} />
 ))
 
-storiesOf('ChartStoryView', module).add('normal', () => <ChartStoryView />)
+storiesOf('ChartStoryView', module).add('normal', () => (
+    <ChartStoryView config={chartConfig} data={chartData} />
+))
 
 // storiesOf('Button', module)
 //   .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
