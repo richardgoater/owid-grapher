@@ -396,11 +396,12 @@ export class Timeline extends React.Component<TimelineProps> {
         return (
             <div
                 ref={this.base}
-                className="flex px-4 py-2 items-center border-t border-gray-400 cursor-pointer"
+                className="flex p-2 items-center border-t border-gray-400 cursor-pointer"
                 onTouchStart={this.onMouseDown}
                 onMouseDown={this.onMouseDown}
             >
                 <div
+                    className="ml-2"
                     onMouseDown={e => e.stopPropagation()}
                     onClick={this.onTogglePlay}
                 >
@@ -410,7 +411,7 @@ export class Timeline extends React.Component<TimelineProps> {
                         <FontAwesomeIcon icon={faPlay} />
                     )}
                 </div>
-                <div className="px-2">{formatYear(minYear)}</div>
+                <div className="mx-2">{formatYear(minYear)}</div>
                 <div className="flex flex-grow items-center bg-gray-200 h-3 relative">
                     <div
                         className="rounded-sm bg-blue-500 h-5 w-2 absolute"
@@ -428,7 +429,7 @@ export class Timeline extends React.Component<TimelineProps> {
                         style={{ left: `${endYearProgress * 100}%` }}
                     />
                 </div>
-                <div className="px-2">{formatYear(maxYear)}</div>
+                <div className="mx-2">{formatYear(maxYear)}</div>
             </div>
         )
     }
