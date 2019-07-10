@@ -320,7 +320,7 @@ export class ChartView extends React.Component<ChartViewProps> {
 
             const style = {
                 width: renderWidth,
-                // height: renderHeight, // removing for now
+                // height: renderHeight, // TODO: something wrong with this
                 fontSize: this.chart.baseFontSize
             }
 
@@ -372,6 +372,7 @@ export class ChartView extends React.Component<ChartViewProps> {
     componentDidMount() {
         window.chartView = this
         window.addEventListener('scroll', this.checkVisibility)
+        this.checkVisibility()
     }
 
     componentWillUnmount() {

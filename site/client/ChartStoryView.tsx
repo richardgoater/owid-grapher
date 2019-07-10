@@ -21,11 +21,10 @@ export class ChartStoryView extends React.Component {
     }
 
     componentDidMount() {
-        window.addEventListener('resize', this.calcBounds)
-        this.calcBounds()
-
         this.chart = new ChartConfig(this.props.config, {})
         this.chart.receiveData(this.props.data as any)
+        window.addEventListener('resize', this.calcBounds)
+        this.calcBounds()
     }
 
     componentWillUnmount() {
@@ -35,7 +34,7 @@ export class ChartStoryView extends React.Component {
     render() {
         return (
             <figure data-grapher-src ref={this.base} className="h-96">
-                {this.bounds && (
+                {this.bounds && this.chart && (
                     <ChartView chart={this.chart} bounds={this.bounds} />
                 )}
             </figure>
